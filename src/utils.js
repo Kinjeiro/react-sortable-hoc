@@ -16,7 +16,9 @@ export const events = {
 };
 
 export const vendorPrefix = (function () {
-    if (typeof window === 'undefined') return ''; // server environment
+	//@ANKU - some SSR applications used fake empty window for server, so need check method
+    //if (typeof window === 'undefined') return ''; // server environment
+	if (typeof window === 'undefined' || !window.getComputedStyle) return ''; // server environment
     let styles = window.getComputedStyle(document.documentElement, '');
     let pre = (Array.prototype.slice
         .call(styles)
